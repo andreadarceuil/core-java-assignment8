@@ -1,0 +1,38 @@
+Multi-Threading
+
+1. Compare process vs thread. Why should we use thread? 
+
+To maintain responsiveness of an application during a long running tasks
+Some processes must be done in parallel
+To monitor status of some resources
+Some problems are intrinsically parallel
+
+2. How do you implement thread and when to use what approach? 
+Your class can extend from the Thread class and you override the run method- then you create an object of that class from which you call the sleep method.
+
+Your class can implement the Runnable or Callable interface and you implement/override the run method.You must create a thread object using the one arg constructor using an object of your class as the parameter.  This thread object can call the start method.
+
+You can create a thread object in the main method  with the one arg constructor and using new Runnable() as a parameter ; the run method must be overridden in the code block
+Thread thread = new Thread(new Runnable(){@Override public void run (){}})
+
+3.What is the difference between start() vs run()? Can we call the run() method of a thread class?
+The start method creates a new thread. 
+The run method calls the overridden run method of a thread object and this will run in the main thread of a process but it will not run in a separate thread
+
+
+4.Compare wait() vs sleep().
+If other threads are waiting, sleep holds onto the acquired lock whereas wait releases the lock if other threads are waiting.
+Sleep is a static method of the Thread class whereas wait is a non static method of Object
+Wait must be called from a synchronize or an IllegalMonitorStateException will be called; sleep can be called anywhere
+Wait is used for inter-thread communication whereas sleep is used to introduce a pause on execution
+After wait is called you must use notify to start a new thread, but after sleep the thread executes after the time interval
+
+
+5.How does thread communicate with each other?.
+Wait() notify(), notifyAll() 
+Wait() tells the calling thread to give up the lock and go to sleep until some other thread enters the same monitor and calls notify.
+notify() It wakes up one single thread called wait() on the same object.
+notifyAll() It wakes up all the threads called wait() on the same object.
+
+
+6.Write a java program where you can show inter thread communication. Make sure you are using wait(), notify() methods.
